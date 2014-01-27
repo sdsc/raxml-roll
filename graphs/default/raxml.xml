@@ -1,0 +1,32 @@
+<?xml version="1.0" standalone="no"?>
+
+<graph>
+
+	<description>
+        raxml http://sco.h-its.org/exelixis
+	garli https://www.nescent.org/wg_garli
+        mafft http://mafft.cbrc.jp/alignment/software
+	</description>
+
+	<copyright>
+	Copyright (c) 2000 - 2012 The Regents of the University of California.
+	All rights reserved. Rocks(r) v5.5/v6.0 www.rocksclusters.org
+	
+	</copyright>
+
+	<changelog>
+	$Log$
+	</changelog>
+
+	<!-- add edges here -->
+	<edge from="base">
+		<to>raxml-base</to>
+	</edge>
+
+	<!-- enforce post section ordering -->
+	<!-- raxml-base post sections execute after base post sections -->
+	<order head="base">
+		<tail>raxml-base</tail>
+	</order>
+
+</graph>
