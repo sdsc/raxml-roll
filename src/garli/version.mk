@@ -1,7 +1,7 @@
 PKGROOT            = /opt/garli
 NAME               = garli
 VERSION            = 2.01
-RELEASE            = 2
+RELEASE            = 0
 TARBALL_POSTFIX    = tar.gz
 
 SRC_SUBDIR         = garli
