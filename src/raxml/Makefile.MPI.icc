@@ -3,7 +3,7 @@
 CC = mpicc 
 
 
-CFLAGS = -D_WAYNE_MPI -D_GNU_SOURCE -fomit-frame-pointer -funroll-loops -O2  -msse
+CFLAGS = -D_WAYNE_MPI -D_GNU_SOURCE -fomit-frame-pointer -funroll-loops -O2 -xavx #-msse
 
 
 LIBRARIES = -lm
@@ -17,7 +17,7 @@ all : raxmlHPC-MPI
 GLOBAL_DEPS = axml.h globalVariables.h rmq.h rmqs.h #mem_alloc.h
 
 raxmlHPC-MPI : $(objs)
-	$(CC) -o raxmlHPC-MPI $(objs) $(LIBRARIES) 
+	$(CC) -o raxmlHPC-MPI $(objs) $(LIBRARIES) $(LDFLAGS) 
 
 rmqs.o : rmqs.c $(GLOBAL_DEPS)
 classify.o : classify.c $(GLOBAL_DEPS)
