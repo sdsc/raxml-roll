@@ -84,9 +84,8 @@ install::
 	mkdir -p $(REDHAT.ROOT)/src/build-raxml-modules
 	mount --bind $(ROOT)/$(PKGROOT) $(PKGROOT)
 	( \
+             cp -r binaries $(PKGROOT); \
              cd $(SOURCE_DIR)/core; \
-             make install; \
-             cd ../extensions; \
              make install \
 	)
 	cat mafft.module | perl -pi -e "s!MODULEROOT!/opt/modulefiles/applications/mafft!g;s!VERSION!$(VERSION)!g;s!ROLLCOMPILER!intel!g;s!ROLLMPI!openmpi!g;s!ROLLNETWORK!ib!g" \
