@@ -86,6 +86,7 @@ install::
 	( \
              cd $(SOURCE_DIR); \
              cp -r binaries $(PKGROOT); \
+             cp -r test $(PKGROOT); \
              cd core; \
              make install \
 	)
