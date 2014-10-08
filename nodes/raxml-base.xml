@@ -23,7 +23,6 @@
 	<package>mafft</package>
 	<package>garli</package>
 	<package>raxml-modules</package>
-	<package>roll-raxml-usersguide</package>
 
 
 </kickstart>

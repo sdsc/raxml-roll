@@ -1,0 +1,11 @@
+--- mafft-7.058-with-extensions/extensions/Makefile	2011-05-29 17:25:00.000000000 -0700
++++ patch-files/Makefile.extensions	2014-10-08 08:52:17.000000000 -0700
+@@ -1,5 +1,7 @@
+-PREFIX = /usr/local
++PREFIX = ROLLPREFIX
+ LIBDIR = $(PREFIX)/libexec/mafft
++CC = icc
++CFLAGS = -fast
+ 
+ #MNO_CYGWIN = -mno-cygwin
+ 

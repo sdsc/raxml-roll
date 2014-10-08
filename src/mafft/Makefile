@@ -67,11 +67,13 @@ build: $(SRC_DIRS)
            . /etc/profile.d/modules.sh; \
            module load intel; \
            module load openmpi_ib; \
-           patch $(SOURCE_DIR)/core/Makefile patch-files/Makefile.patch; \
+           patch $(SOURCE_DIR)/core/Makefile patch-files/Makefile.core.patch; \
+           patch $(SOURCE_DIR)/extensions/Makefile patch-files/Makefile.extensions.patch; \
 	   perl -pi -e "s!ROLLPREFIX!$(PKGROOT)!" $(SOURCE_DIR)/core/Makefile; \
+	   perl -pi -e "s!ROLLPREFIX!$(PKGROOT)!" $(SOURCE_DIR)/extensions/Makefile; \
            cd $(SOURCE_DIR)/core; \
            make; \
-           cd extensions; \
+           cd ../extensions; \
            make \
 	)
 	@echo "::: Package $(NAME) build complete :::"
