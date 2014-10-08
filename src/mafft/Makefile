@@ -70,6 +70,8 @@ build: $(SRC_DIRS)
            patch $(SOURCE_DIR)/core/Makefile patch-files/Makefile.patch; \
 	   perl -pi -e "s!ROLLPREFIX!$(PKGROOT)!" $(SOURCE_DIR)/core/Makefile; \
            cd $(SOURCE_DIR)/core; \
+           make; \
+           cd extensions; \
            make \
 	)
 	@echo "::: Package $(NAME) build complete :::"
@@ -81,6 +83,8 @@ install::
 	mount --bind $(ROOT)/$(PKGROOT) $(PKGROOT)
 	( \
              cd $(SOURCE_DIR)/core; \
+             make install; \
+             cd ../extensions; \
              make install \
 	)
 	cat mafft.module | perl -pi -e "s!MODULEROOT!/opt/modulefiles/applications/mafft!g;s!VERSION!$(VERSION)!g;s!ROLLCOMPILER!intel!g;s!ROLLMPI!openmpi!g;s!ROLLNETWORK!ib!g" \

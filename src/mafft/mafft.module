@@ -3,7 +3,7 @@
 
 cat > ROOT_PKGROOTMODULEROOT/VERSION <<END
 #%Module1.0
-prepend-path PATH /opt/mafft/bin
+prepend-path PATH /opt/mafft/bin:/opt/mafft/binaries
 END
 
 chmod 0644  ROOT_PKGROOTMODULEROOT/VERSION

@@ -1,7 +1,7 @@
 ROLL			= raxml
 VERSION			= 1.0
 NAME    		= roll-$(ROLL)-usersguide
-RELEASE			= 0
+RELEASE                 = 5
 
 SUMMARY_COMPATIBLE	= $(VERSION)
 SUMMARY_MAINTAINER	= Rocks Group

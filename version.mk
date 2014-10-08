@@ -1,6 +1,6 @@
 ROLLNAME	= raxml
-RELEASE		= 0
+RELEASE         = 5
 COLOR		= firebrick
 
 REDHAT.ROOT	= $(CURDIR)
-RPM.EXTRAS         = AutoReq:No
+RPM.EXTRAS      = AutoReq:No
