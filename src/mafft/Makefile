@@ -86,7 +86,10 @@ install::
 	( \
              cd $(SOURCE_DIR); \
              cp -r binaries $(PKGROOT); \
+             chmod 0775 $(PKGROOT)/binaries; \
              cp -r test $(PKGROOT); \
+             chmod 0755 $(PKGROOT)/test; \
+             chmod 0644 $(PKGROOT)/test/*; \
              cd core; \
              make install \
 	)
