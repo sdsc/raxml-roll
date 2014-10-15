@@ -1,12 +1,12 @@
---- mafft-7.058-with-extensions/core/Makefile	2013-07-30 17:54:52.000000000 -0700
-+++ patch-files/Makefile	2013-12-11 14:28:08.000000000 -0800
+--- mafft-7.187-with-extensions/core/Makefile	2014-09-27 19:51:35.000000000 -0700
++++ patch-files/Makefile.core	2014-10-15 13:55:39.459681444 -0700
 @@ -1,4 +1,4 @@
 -PREFIX = /usr/local
-+PREFIX = ROLLPREFIX
++PREFIX = /opt/mafft
  LIBDIR = $(PREFIX)/libexec/mafft
  BINDIR = $(PREFIX)/bin
  MANDIR = $(PREFIX)/share/man/man1
-@@ -9,11 +9,11 @@
+@@ -10,13 +10,13 @@
  # Comment out the above line if your compiler 
  # does not support TLS (thread-local strage).
  
@@ -14,6 +14,8 @@
 -CFLAGS = -O3
 +#CC = gcc
 +#CFLAGS = -O3
+ #CFLAGS = -O3 -fPIC
+ # add -fPIC when building .so files
  
 -#CC = icc
 -#CFLAGS = -fast
@@ -21,4 +23,4 @@
 +CFLAGS = -fast
  # if you have icc, use this.
  
- #CFLAGS =  -O0  -pedantic -Wall -std=c99 -g -pg -DMALLOC_CHECK_=3
+ #CFLAGS =  -O0  -fPIC -pedantic -Wall -std=c99 -g -pg -DMALLOC_CHECK_=3

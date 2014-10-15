@@ -93,9 +93,9 @@ install::
              cd core; \
              make install \
 	)
+	-umount $(PKGROOT)
 	cat mafft.module | perl -pi -e "s!MODULEROOT!/opt/modulefiles/applications/mafft!g;s!VERSION!$(VERSION)!g;s!ROLLCOMPILER!intel!g;s!ROLLMPI!openmpi!g;s!ROLLNETWORK!ib!g" \
           > $(REDHAT.ROOT)/src/build-raxml-modules/$(NAME).module
-	umount $(PKGROOT)
 	@echo "::: Package $(NAME) install complete :::"
 
 clean::
