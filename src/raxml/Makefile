@@ -62,9 +62,20 @@ REDHAT.ROOT = $(CURDIR)/../../
 include Rules.mk
 include pull.mk
 
+ifneq ("$(ROLLOPTS)", "$(subst avx,,$(ROLLOPTS))")
+    AVS_FLAG = -xavx
+endif
+ifneq ("$(ROLLOPTS)", "$(subst avx2,,$(ROLLOPTS))")
+    AVS_FLAG = -xcore-avx2
+endif
+
 build: $(SRC_DIRS)
 	( \
           cp *.icc $(SOURCE_DIR); \
+          perl -pi -e "s!AVS_FLAG!$(AVS_FLAG)!" $(SOURCE_DIR)/Makefile.HYBRID.icc; \
+          perl -pi -e "s!AVS_FLAG!$(AVS_FLAG)!" $(SOURCE_DIR)/Makefile.icc; \
+          perl -pi -e "s!AVS_FLAG!$(AVS_FLAG)!" $(SOURCE_DIR)/Makefile.MPI.icc; \
+          perl -pi -e "s!AVS_FLAG!$(AVS_FLAG)!" $(SOURCE_DIR)/Makefile.PTHREADS.icc; \
           . /etc/profile.d/modules.sh; \
           module load intel; \
           module load openmpi_ib; \

@@ -63,6 +63,13 @@ include Rules.mk
 include pull.mk
 NCL_VERSION=2.1.18
 
+ifneq ("$(ROLLOPTS)", "$(subst avx,,$(ROLLOPTS))")
+    AVS_FLAG = -xavx
+endif
+ifneq ("$(ROLLOPTS)", "$(subst avx2,,$(ROLLOPTS))")
+    AVS_FLAG = -xcore-avx2
+endif
+
 
 build: $(SRC_DIRS)
 	( \
@@ -73,6 +80,8 @@ build: $(SRC_DIRS)
           tar xvzf ncl-$(NCL_VERSION).tar.gz; \
           export CC=icc; \
           export CXX=icpc; \
+          export CFLAGS="$(AVS_FLAG)"; \
+          export CXXFLAGS="$(AVS_FLAG)"; \
           export CPPFLAGS=-DNCL_CONST_FUNCS; \
           cd ncl-$(NCL_VERSION); \
 	  ./configure --prefix=$(CURDIR)/$(SOURCE_DIR)/ncldist -disable-shared; \
@@ -103,5 +112,5 @@ install::
 	@echo "::: Package $(NAME) install complete :::"
 
 clean::
-	rm -rf $(SOURCE_DIR)
+	rm -rf $(SOURCE_DIR) ncldist
 	-umount $(PKGROOT)

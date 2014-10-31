@@ -58,10 +58,18 @@
 
 REDHAT.ROOT = $(CURDIR)/../../
 
+ifneq ("$(ROLLOPTS)", "$(subst avx,,$(ROLLOPTS))")
+    AVS_FLAG = -xavx
+endif
+ifneq ("$(ROLLOPTS)", "$(subst avx2,,$(ROLLOPTS))")
+    AVS_FLAG = -xcore-avx2
+endif
+
+
 -include $(ROCKSROOT)/etc/Rules.mk
 include Rules.mk
 include pull.mk
-
+ 
 build: $(SRC_DIRS)
 	( \
            . /etc/profile.d/modules.sh; \
@@ -69,8 +77,12 @@ build: $(SRC_DIRS)
            module load openmpi_ib; \
            patch $(SOURCE_DIR)/core/Makefile patch-files/Makefile.core.patch; \
            patch $(SOURCE_DIR)/extensions/Makefile patch-files/Makefile.extensions.patch; \
+           patch $(SOURCE_DIR)/extensions/mxscarna_src/Makefile patch-files/Makefile.mxscarna_src.patch; \
 	   perl -pi -e "s!ROLLPREFIX!$(PKGROOT)!" $(SOURCE_DIR)/core/Makefile; \
 	   perl -pi -e "s!ROLLPREFIX!$(PKGROOT)!" $(SOURCE_DIR)/extensions/Makefile; \
+	   perl -pi -e "s!AVS_FLAG!$(AVS_FLAG)!" $(SOURCE_DIR)/core/Makefile; \
+	   perl -pi -e "s!AVS_FLAG!$(AVS_FLAG)!" $(SOURCE_DIR)/extensions/Makefile; \
+	   perl -pi -e "s!AVS_FLAG!$(AVS_FLAG)!" $(SOURCE_DIR)/extensions/mxscarna_src/Makefile; \
            cd $(SOURCE_DIR)/core; \
            make; \
            cd ../extensions; \
