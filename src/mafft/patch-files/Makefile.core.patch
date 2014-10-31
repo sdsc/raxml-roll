@@ -20,7 +20,7 @@
 -#CC = icc
 -#CFLAGS = -fast
 +CC = icc
-+CFLAGS = -O3 -no-prec-div -ipo -static AVS_FLAG
++CFLAGS = -O3 -no-prec-div -ipo -static AVX_FLAG
  # if you have icc, use this.
  
  #CFLAGS =  -O0  -fPIC -pedantic -Wall -std=c99 -g -pg -DMALLOC_CHECK_=3

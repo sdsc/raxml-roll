@@ -15,7 +15,7 @@
  #CXXFLAGS = -O3 -funroll-loops -finline-limit=$(BIG_INLINE_LIMIT)
 -CXXFLAGS = -O3  # by katoh
 +#CXXFLAGS = -O3  # by katoh
-+CFLAGS = -O3 -no-prec-div -ipo -static AVS_FLAG
++CFLAGS = -O3 -no-prec-div -ipo -static AVX_FLAG
  OFLAGS = -DNDEBUG -DNumInsertStates=1 -DVERSION="2.0" $(CXXFLAGS) $(CFLAGS1)
  LIBS = -L$(PROBCONS)  -L./
  INCL = -I$(PROBCONS) -I$(VIENNA) -I./

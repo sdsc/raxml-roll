@@ -11,7 +11,7 @@
  
  PROGS = mxscarnamod
  SCARNASRC = mxscarna_src/* mxscarna_src/*/*
-+CFLAGS = -O3 -no-prec-div -ipo -static AVS_FLAG
++CFLAGS = -O3 -no-prec-div -ipo -static AVX_FLAG
 +CC=icc
 +CXX=icpc
  

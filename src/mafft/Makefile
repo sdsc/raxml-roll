@@ -59,10 +59,10 @@
 REDHAT.ROOT = $(CURDIR)/../../
 
 ifneq ("$(ROLLOPTS)", "$(subst avx,,$(ROLLOPTS))")
-    AVS_FLAG = -xavx
+    AVX_FLAG = -xavx
 endif
 ifneq ("$(ROLLOPTS)", "$(subst avx2,,$(ROLLOPTS))")
-    AVS_FLAG = -xcore-avx2
+    AVX_FLAG = -xcore-avx2
 endif
 
 
@@ -80,9 +80,9 @@ build: $(SRC_DIRS)
            patch $(SOURCE_DIR)/extensions/mxscarna_src/Makefile patch-files/Makefile.mxscarna_src.patch; \
 	   perl -pi -e "s!ROLLPREFIX!$(PKGROOT)!" $(SOURCE_DIR)/core/Makefile; \
 	   perl -pi -e "s!ROLLPREFIX!$(PKGROOT)!" $(SOURCE_DIR)/extensions/Makefile; \
-	   perl -pi -e "s!AVS_FLAG!$(AVS_FLAG)!" $(SOURCE_DIR)/core/Makefile; \
-	   perl -pi -e "s!AVS_FLAG!$(AVS_FLAG)!" $(SOURCE_DIR)/extensions/Makefile; \
-	   perl -pi -e "s!AVS_FLAG!$(AVS_FLAG)!" $(SOURCE_DIR)/extensions/mxscarna_src/Makefile; \
+	   perl -pi -e "s!AVX_FLAG!$(AVX_FLAG)!" $(SOURCE_DIR)/core/Makefile; \
+	   perl -pi -e "s!AVX_FLAG!$(AVX_FLAG)!" $(SOURCE_DIR)/extensions/Makefile; \
+	   perl -pi -e "s!AVX_FLAG!$(AVX_FLAG)!" $(SOURCE_DIR)/extensions/mxscarna_src/Makefile; \
            cd $(SOURCE_DIR)/core; \
            make; \
            cd ../extensions; \

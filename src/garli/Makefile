@@ -64,10 +64,10 @@ include pull.mk
 NCL_VERSION=2.1.18
 
 ifneq ("$(ROLLOPTS)", "$(subst avx,,$(ROLLOPTS))")
-    AVS_FLAG = -xavx
+    AVX_FLAG = -xavx
 endif
 ifneq ("$(ROLLOPTS)", "$(subst avx2,,$(ROLLOPTS))")
-    AVS_FLAG = -xcore-avx2
+    AVX_FLAG = -xcore-avx2
 endif
 
 
@@ -80,8 +80,8 @@ build: $(SRC_DIRS)
           tar xvzf ncl-$(NCL_VERSION).tar.gz; \
           export CC=icc; \
           export CXX=icpc; \
-          export CFLAGS="$(AVS_FLAG)"; \
-          export CXXFLAGS="$(AVS_FLAG)"; \
+          export CFLAGS="$(AVX_FLAG)"; \
+          export CXXFLAGS="$(AVX_FLAG)"; \
           export CPPFLAGS=-DNCL_CONST_FUNCS; \
           cd ncl-$(NCL_VERSION); \
 	  ./configure --prefix=$(CURDIR)/$(SOURCE_DIR)/ncldist -disable-shared; \

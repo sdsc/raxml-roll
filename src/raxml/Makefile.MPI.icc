@@ -3,7 +3,7 @@
 CC = mpicc 
 
 
-CFLAGS = -D_WAYNE_MPI -D_GNU_SOURCE -fomit-frame-pointer -funroll-loops -O2 AVS_FLAG
+CFLAGS = -D_WAYNE_MPI -D_GNU_SOURCE -fomit-frame-pointer -funroll-loops -O2 AVX_FLAG
 
 
 LIBRARIES = -lm
