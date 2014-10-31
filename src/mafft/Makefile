@@ -58,11 +58,11 @@
 
 REDHAT.ROOT = $(CURDIR)/../../
 
-ifneq ("$(ROLLOPTS)", "$(subst avx,,$(ROLLOPTS))")
-    AVX_FLAG = -xavx
-endif
+AVX_FLAG=
 ifneq ("$(ROLLOPTS)", "$(subst avx2,,$(ROLLOPTS))")
-    AVX_FLAG = -xcore-avx2
+      AVX_FLAG = -xcore-avx2
+else ifneq ("$(ROLLOPTS)", "$(subst avx,,$(ROLLOPTS))")
+      AVX_FLAG = -xavx
 endif
 
 
