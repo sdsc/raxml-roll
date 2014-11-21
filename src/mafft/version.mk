@@ -1,7 +1,7 @@
 PKGROOT            = /opt/mafft
 NAME               = mafft
 VERSION            = 7.187
-RELEASE            = 0
+RELEASE            = 6
 TARBALL_POSTFIX    = tgz
 
 SRC_SUBDIR         = mafft
