@@ -1,6 +1,6 @@
 PKGROOT            = /opt/raxml
 NAME               = raxml
-VERSION            = 8.1.8
+VERSION            = 8.1.11
 RELEASE            = 0
 TARBALL_POSTFIX    = tar.gz
 

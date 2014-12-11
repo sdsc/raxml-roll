@@ -1,5 +1,5 @@
 ROLLNAME	= raxml
-RELEASE         = 7
+RELEASE         = 8
 COLOR		= firebrick
 
 REDHAT.ROOT	= $(CURDIR)
