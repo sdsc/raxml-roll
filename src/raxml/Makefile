@@ -78,7 +78,7 @@ build: $(SRC_DIRS)
           perl -pi -e "s!AVX_FLAG!$(AVX_FLAG)!" $(SOURCE_DIR)/Makefile.PTHREADS.icc; \
           . /etc/profile.d/modules.sh; \
           module load intel; \
-          module load openmpi_ib; \
+          module load mvapich2_ib; \
 	  cd $(SOURCE_DIR); \
           make -f Makefile.HYBRID.icc; \
           rm -f *.o; \
@@ -97,7 +97,7 @@ install::
 	  cd $(SOURCE_DIR); \
           cp raxmlHPC* $(ROOT)/$(PKGROOT)/bin \
 	)
-	cat raxml.module | perl -pi -e "s!MODULEROOT!/opt/modulefiles/applications/raxml!g;s!VERSION!$(VERSION)!g;s!ROLLCOMPILER!intel!g;s!ROLLMPI!openmpi!g;s!ROLLNETWORK!ib!g" \
+	cat raxml.module | perl -pi -e "s!MODULEROOT!/opt/modulefiles/applications/raxml!g;s!VERSION!$(VERSION)!g;s!ROLLCOMPILER!intel!g;s!ROLLMPI!mvapich2!g;s!ROLLNETWORK!ib!g" \
           > $(REDHAT.ROOT)/src/build-raxml-modules/$(NAME).module
 
 	@echo "::: Package $(NAME) install complete :::"
