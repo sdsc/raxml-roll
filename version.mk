@@ -1,6 +1,6 @@
-ROLLNAME	= raxml
-RELEASE         = 8
-COLOR		= firebrick
+ROLLNAME        = math
+VERSION        :=$(shell bash version.sh -v)
+RELEASE        :=$(shell bash version.sh -h)
+COLOR           = orange
 
-REDHAT.ROOT	= $(CURDIR)
-RPM.EXTRAS      = AutoReq:No
+REDHAT.ROOT     = $(PWD)
