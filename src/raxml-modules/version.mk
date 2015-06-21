@@ -1,4 +1,4 @@
 NAME    	= raxml-modules
 VERSION 	= 1.0
-RELEASE         = 8
+RELEASE         = 9
 RPM.EXTRAS      = "AutoReq: no"
