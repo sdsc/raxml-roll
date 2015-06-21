@@ -1,5 +1,5 @@
 PKGROOT            = /opt/garli
-NAME               = garli
+NAME               = sdsc-garli
 VERSION            = 2.01
 RELEASE            = 6
 TARBALL_POSTFIX    = tar.gz

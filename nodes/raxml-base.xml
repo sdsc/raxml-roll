@@ -19,10 +19,10 @@
 	$Log$
 	</changelog>
 
-	<package>raxml</package>
-	<package>mafft</package>
-	<package>garli</package>
-	<package>raxml-modules</package>
+	<package>sdsc-raxml</package>
+	<package>sdsc-mafft</package>
+	<package>sdsc-garli</package>
+	<package>sdsc-raxml-modules</package>
 
 
 </kickstart>

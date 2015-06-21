@@ -1,5 +1,5 @@
 PKGROOT            = /opt/mafft
-NAME               = mafft
+NAME               = sdsc-mafft
 VERSION            = 7.187
 RELEASE            = 6
 TARBALL_POSTFIX    = tgz
