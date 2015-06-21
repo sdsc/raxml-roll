@@ -1,12 +1,12 @@
 PKGROOT            = /opt/raxml
 NAME               = raxml
-VERSION            = 8.1.11
+VERSION            = 8.1.22
 RELEASE            = 0
 TARBALL_POSTFIX    = tar.gz
 
 SRC_SUBDIR         = raxml
 
-SOURCE_NAME        = standard-RAxML
+SOURCE_NAME        = raxml
 SOURCE_VERSION     = $(VERSION)
 SOURCE_SUFFIX      = tar.gz
 SOURCE_PKG         = $(SOURCE_NAME)-$(SOURCE_VERSION).$(SOURCE_SUFFIX)

@@ -60,7 +60,24 @@ REDHAT.ROOT = $(CURDIR)/../../
 
 -include $(ROCKSROOT)/etc/Rules.mk
 include Rules.mk
-include pull.mk
+include $(SDSCDEVEL)/Pull.mk
+include $(SDSCDEVEL)/Rules.mk
+ROLLCOMPILER=intel
+ROLLMPI=openmpi_ib
+
+$(NAME).spec: DESCRIPTION LICENSE
+
+DESCRIPTION:
+	$(MODULE_LOAD_CC); \
+	( \
+	  $(DESCRIBE_PKG); \
+	  $(DESCRIBE_CC); \
+	  $(DESCRIBE_MPI); \
+	) > $@
+
+LICENSE: $(SRC_DIRS)
+	$(CHECK_LICENSE_FILES)
+	echo Alexandros Stamatakis > $@
 
 AVX_FLAG=
 ifneq ("$(ROLLOPTS)", "$(subst avx2,,$(ROLLOPTS))")
@@ -77,7 +94,7 @@ build: $(SRC_DIRS)
           perl -pi -e "s!AVX_FLAG!$(AVX_FLAG)!" $(SOURCE_DIR)/Makefile.MPI.icc; \
           perl -pi -e "s!AVX_FLAG!$(AVX_FLAG)!" $(SOURCE_DIR)/Makefile.PTHREADS.icc; \
           . /etc/profile.d/modules.sh; \
-          module load intel; \
+          $(MODULE_LOAD_CC); \
           module load mvapich2_ib; \
 	  cd $(SOURCE_DIR); \
           make -f Makefile.HYBRID.icc; \
