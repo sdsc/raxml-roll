@@ -22,11 +22,11 @@ if { $loadApps  }  {
           set compiler "gnu"
      }
      if { [ string match "*mvapich2*" $app ] == 1 } {
-          set mpi "mvapich2"
+          set mpi "mvapich2_ib"
      } elseif { [ string match "*openmpi*" $app ] == 1 } {
-          set mpi "openmpi"
+          set mpi "openmpi_ib"
      } elseif { [ string match "*mpich2*" $app ] == 1 } {
-          set mpi "mpich2"
+          set mpi "mpich2_ib"
      }
   }
  }
