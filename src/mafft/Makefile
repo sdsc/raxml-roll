@@ -58,6 +58,9 @@
 
 REDHAT.ROOT = $(CURDIR)/../../
 
+ROLLCOMPILER=intel
+ROLLMPI=openmpi_ib
+
 AVX_FLAG=
 ifneq ("$(ROLLOPTS)", "$(subst avx2,,$(ROLLOPTS))")
       AVX_FLAG = -xcore-avx2
@@ -66,15 +69,31 @@ else ifneq ("$(ROLLOPTS)", "$(subst avx,,$(ROLLOPTS))")
 endif
 
 
+ 
 -include $(ROCKSROOT)/etc/Rules.mk
 include Rules.mk
-include pull.mk
- 
+include $(SDSCDEVEL)/Pull.mk
+include $(SDSCDEVEL)/Rules.mk
+
+$(NAME).spec: DESCRIPTION LICENSE
+
+DESCRIPTION:
+	$(MODULE_LOAD_CC); \
+	( \
+	  $(DESCRIBE_PKG); \
+	  $(DESCRIBE_CC); \
+	  $(DESCRIBE_MPI); \
+	) > $@
+
+LICENSE: $(SRC_DIRS)
+	$(CHECK_LICENSE_FILES)
+	echo Kazutaka Katoh > $@
+
 build: $(SRC_DIRS)
 	( \
            . /etc/profile.d/modules.sh; \
-           module load intel; \
-           module load openmpi_ib; \
+           $(MODULE_LOAD_CC); \
+           $(MODULE_LOAD_MPI); \
            patch $(SOURCE_DIR)/core/Makefile patch-files/Makefile.core.patch; \
            patch $(SOURCE_DIR)/extensions/Makefile patch-files/Makefile.extensions.patch; \
            patch $(SOURCE_DIR)/extensions/mxscarna_src/Makefile patch-files/Makefile.mxscarna_src.patch; \
@@ -94,7 +113,7 @@ install::
 	mkdir -p $(ROOT)/$(PKGROOT)
 	mkdir -p $(PKGROOT)
 	mkdir -p $(REDHAT.ROOT)/src/build-raxml-modules
-	mount --bind $(ROOT)/$(PKGROOT) $(PKGROOT)
+	$(call BIND_MOUNT, $(PKGROOT), $(ROOT)/$(PKGROOT))
 	( \
              cd $(SOURCE_DIR); \
              cp -r binaries $(PKGROOT); \
@@ -105,11 +124,8 @@ install::
              cd core; \
              make install \
 	)
-	-umount $(PKGROOT)
-	cat mafft.module | perl -pi -e "s!MODULEROOT!/opt/modulefiles/applications/mafft!g;s!VERSION!$(VERSION)!g;s!ROLLCOMPILER!intel!g;s!ROLLMPI!openmpi!g;s!ROLLNETWORK!ib!g" \
-          > $(REDHAT.ROOT)/src/build-raxml-modules/$(NAME).module
+	$(call BIND_UMOUNT, $(PKGROOT))
 	@echo "::: Package $(NAME) install complete :::"
 
 clean::
-	rm -rf $(SOURCE_DIR)
-	-umount $(PKGROOT)
+	rm -rf $(SOURCE_DIR) DESCRIPTION LICENSE

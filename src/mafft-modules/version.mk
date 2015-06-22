@@ -3,11 +3,11 @@ ROLLMPI=openmpi_ib
 COMPILERNAME := $(firstword $(subst /, ,$(ROLLCOMPILER)))
 MPINAME := $(firstword $(subst /, ,$(ROLLMPI)))
 
-PACKAGE     = raxml
+PACKAGE     = mafft
 CATEGORY    = applications
 
 NAME        = sdsc-$(PACKAGE)-modules
-RELEASE     = 1
+RELEASE     = 0
 PKGROOT     = /opt/modulefiles/$(CATEGORY)/$(PACKAGE)
 
 VERSION_SRC = $(REDHAT.ROOT)/src/$(PACKAGE)/version.mk

@@ -57,12 +57,15 @@
 # $Log$
 
 REDHAT.ROOT = $(CURDIR)/../../
-
 -include $(ROCKSROOT)/etc/Rules.mk
 include Rules.mk
-include pull.mk
+include $(SDSCDEVEL)/Pull.mk
+include $(SDSCDEVEL)/Rules.mk
+
 NCL_VERSION=2.1.18
 
+ROLLCOMPILER=intel
+ROLLMPI=openmpi_ib
 AVX_FLAG=
 ifneq ("$(ROLLOPTS)", "$(subst avx2,,$(ROLLOPTS))")
       AVX_FLAG = -xcore-avx2
@@ -70,17 +73,31 @@ else ifneq ("$(ROLLOPTS)", "$(subst avx,,$(ROLLOPTS))")
       AVX_FLAG = -xavx
 endif
 
+$(NAME).spec: DESCRIPTION LICENSE
+
+DESCRIPTION:
+	$(MODULE_LOAD_CC); \
+	( \
+	  $(DESCRIBE_PKG); \
+	  $(DESCRIBE_CC); \
+	  $(DESCRIBE_MPI); \
+	) > $@
+
+LICENSE: $(SRC_DIRS)
+	$(CHECK_LICENSE_FILES)
+	echo  gplv3 > $@
+
 
 
 build: $(SRC_DIRS)
 	( \
           . /etc/profile.d/modules.sh; \
-          module load intel; \
-          module load openmpi_ib; \
+          $(MODULE_LOAD_CC); \
+          $(MODULE_LOAD_MPI); \
           cd $(SOURCE_DIR); \
           tar xvzf ncl-$(NCL_VERSION).tar.gz; \
-          export CC=icc; \
-          export CXX=icpc; \
+          export CC=$(CC); \
+          export CXX=$(CXX); \
           export CFLAGS="$(AVX_FLAG)"; \
           export CXXFLAGS="$(AVX_FLAG)"; \
           export CPPFLAGS=-DNCL_CONST_FUNCS; \
@@ -99,19 +116,15 @@ install::
 	mkdir -p $(ROOT)/$(PKGROOT)
 	mkdir -p $(PKGROOT)
 	mkdir -p $(REDHAT.ROOT)/src/build-raxml-modules
-	mount --bind $(ROOT)/$(PKGROOT) $(PKGROOT)
+	$(call BIND_MOUNT, $(PKGROOT), $(ROOT)/$(PKGROOT))
 	( \
 	  cd $(SOURCE_DIR); \
-          . /etc/profile.d/modules.sh; \
-          module load intel; \
-          module load openmpi_ib; \
+          $(MODULE_LOAD_CC); \
+          $(MODULE_LOAD_MPI); \
 	  make install; \
 	)
-	umount $(PKGROOT)
-	cat garli.module | perl -pi -e "s!MODULEROOT!/opt/modulefiles/applications/garli!g;s!VERSION!$(VERSION)!g;s!ROLLCOMPILER!intel!g;s!ROLLMPI!openmpi!g;s!ROLLNETWORK!ib!g" \
-          > $(REDHAT.ROOT)/src/build-raxml-modules/$(NAME).module
+	$(call BIND_UMOUNT, $(PKGROOT))
 	@echo "::: Package $(NAME) install complete :::"
 
 clean::
-	rm -rf $(SOURCE_DIR) ncldist
-	-umount $(PKGROOT)
+	rm -rf $(SOURCE_DIR) ncldist DESCRIPTION LICENSE

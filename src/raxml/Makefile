@@ -114,10 +114,7 @@ install::
 	  cd $(SOURCE_DIR); \
           cp raxmlHPC* $(ROOT)/$(PKGROOT)/bin \
 	)
-	cat raxml.module | perl -pi -e "s!MODULEROOT!/opt/modulefiles/applications/raxml!g;s!VERSION!$(VERSION)!g;s!ROLLCOMPILER!intel!g;s!ROLLMPI!mvapich2!g;s!ROLLNETWORK!ib!g" \
-          > $(REDHAT.ROOT)/src/build-raxml-modules/$(NAME).module
-
 	@echo "::: Package $(NAME) install complete :::"
 
 clean::
-	rm -rf $(SOURCE_DIR)
+	rm -rf $(SOURCE_DIR) DESCRIPTION LICENSE

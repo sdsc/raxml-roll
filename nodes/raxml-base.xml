@@ -23,6 +23,8 @@
 	<package>sdsc-mafft</package>
 	<package>sdsc-garli</package>
 	<package>sdsc-raxml-modules</package>
+	<package>sdsc-garli-modules</package>
+	<package>sdsc-mafft-modules</package>
 
 
 </kickstart>
