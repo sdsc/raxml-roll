@@ -10,7 +10,7 @@ NAME        = sdsc-$(PACKAGE)-modules
 RELEASE     = 1
 PKGROOT     = /opt/modulefiles/$(CATEGORY)/$(PACKAGE)
 
-VERSION_SRC = $(REDHAT.ROOT)/src/$(PACKAGE)-1.8.11/version.mk
+VERSION_SRC = $(REDHAT.ROOT)/src/$(PACKAGE)-8.1.11/version.mk
 VERSION_INC = version.inc
 include $(VERSION_INC)
 
