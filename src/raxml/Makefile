@@ -95,7 +95,7 @@ build: $(SRC_DIRS)
           perl -pi -e "s!AVX_FLAG!$(AVX_FLAG)!" $(SOURCE_DIR)/Makefile.PTHREADS.icc; \
           . /etc/profile.d/modules.sh; \
           $(MODULE_LOAD_CC); \
-          module load mvapich2_ib; \
+          $(MODULE_LOAD_MPI); \
 	  cd $(SOURCE_DIR); \
           make -f Makefile.HYBRID.icc; \
           rm -f *.o; \
