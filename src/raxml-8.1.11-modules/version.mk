@@ -1,5 +1,5 @@
 ROLLCOMPILER=intel
-ROLLMPI=openmpi_ib
+ROLLMPI=mvapich2_ib
 COMPILERNAME := $(firstword $(subst /, ,$(ROLLCOMPILER)))
 MPINAME := $(firstword $(subst /, ,$(ROLLMPI)))
 
@@ -7,10 +7,10 @@ PACKAGE     = raxml
 CATEGORY    = applications
 
 NAME        = sdsc-$(PACKAGE)-modules
-RELEASE     = 2
+RELEASE     = 1
 PKGROOT     = /opt/modulefiles/$(CATEGORY)/$(PACKAGE)
 
-VERSION_SRC = $(REDHAT.ROOT)/src/$(PACKAGE)/version.mk
+VERSION_SRC = $(REDHAT.ROOT)/src/$(PACKAGE)-1.8.11/version.mk
 VERSION_INC = version.inc
 include $(VERSION_INC)
 
