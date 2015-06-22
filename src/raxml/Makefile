@@ -64,6 +64,8 @@ include $(SDSCDEVEL)/Pull.mk
 include $(SDSCDEVEL)/Rules.mk
 ROLLCOMPILER=intel
 ROLLMPI=openmpi_ib
+COMPILERNAME := $(firstword $(subst /, ,$(ROLLCOMPILER)))
+MPINAME := $(firstword $(subst /, ,$(ROLLMPI)))
 
 $(NAME).spec: DESCRIPTION LICENSE
 

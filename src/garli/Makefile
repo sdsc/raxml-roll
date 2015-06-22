@@ -66,6 +66,9 @@ NCL_VERSION=2.1.18
 
 ROLLCOMPILER=intel
 ROLLMPI=openmpi_ib
+COMPILERNAME := $(firstword $(subst /, ,$(ROLLCOMPILER)))
+MPINAME := $(firstword $(subst /, ,$(ROLLMPI)))
+
 AVX_FLAG=
 ifneq ("$(ROLLOPTS)", "$(subst avx2,,$(ROLLOPTS))")
       AVX_FLAG = -xcore-avx2
@@ -91,7 +94,6 @@ LICENSE: $(SRC_DIRS)
 
 build: $(SRC_DIRS)
 	( \
-          . /etc/profile.d/modules.sh; \
           $(MODULE_LOAD_CC); \
           $(MODULE_LOAD_MPI); \
           cd $(SOURCE_DIR); \

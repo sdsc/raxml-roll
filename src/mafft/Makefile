@@ -60,6 +60,8 @@ REDHAT.ROOT = $(CURDIR)/../../
 
 ROLLCOMPILER=intel
 ROLLMPI=openmpi_ib
+COMPILERNAME := $(firstword $(subst /, ,$(ROLLCOMPILER)))
+MPINAME := $(firstword $(subst /, ,$(ROLLMPI)))
 
 AVX_FLAG=
 ifneq ("$(ROLLOPTS)", "$(subst avx2,,$(ROLLOPTS))")
