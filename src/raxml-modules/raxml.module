@@ -18,7 +18,7 @@ if { $loadApps  }  {
           set compiler "intel"
      } elseif { [ string match "*pgi*" $app ] == 1 } {
           set compiler "pgi"
-     } elseif { [ string match "*gnu*" $app ] == 1 && [ string match *gnutools* $app ] == 0 } {
+     } elseif { [ string match "*gnu*" $app ] == 1 && [ string match *gnubase* $app ] == 0 } {
           set compiler "gnu"
      }
      if { [ string match "*mvapich2_ib*" $app ] == 1 } {
