@@ -57,6 +57,10 @@
 # $Log$
 
 REDHAT.ROOT = $(CURDIR)/../../
+ROLLCOMPILER=intel
+ROLLMPI=openmpi_ib
+COMPILERNAME := $(firstword $(subst /, ,$(ROLLCOMPILER)))
+MPINAME := $(firstword $(subst /, ,$(ROLLMPI)))
 -include $(ROCKSROOT)/etc/Rules.mk
 include Rules.mk
 include $(SDSCDEVEL)/Pull.mk
@@ -64,10 +68,6 @@ include $(SDSCDEVEL)/Rules.mk
 
 NCL_VERSION=2.1.18
 
-ROLLCOMPILER=intel
-ROLLMPI=openmpi_ib
-COMPILERNAME := $(firstword $(subst /, ,$(ROLLCOMPILER)))
-MPINAME := $(firstword $(subst /, ,$(ROLLMPI)))
 
 AVX_FLAG=
 ifneq ("$(ROLLOPTS)", "$(subst avx2,,$(ROLLOPTS))")

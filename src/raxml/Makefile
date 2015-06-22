@@ -58,14 +58,14 @@
 
 REDHAT.ROOT = $(CURDIR)/../../
 
--include $(ROCKSROOT)/etc/Rules.mk
-include Rules.mk
-include $(SDSCDEVEL)/Pull.mk
-include $(SDSCDEVEL)/Rules.mk
 ROLLCOMPILER=intel
 ROLLMPI=openmpi_ib
 COMPILERNAME := $(firstword $(subst /, ,$(ROLLCOMPILER)))
 MPINAME := $(firstword $(subst /, ,$(ROLLMPI)))
+-include $(ROCKSROOT)/etc/Rules.mk
+include Rules.mk
+include $(SDSCDEVEL)/Pull.mk
+include $(SDSCDEVEL)/Rules.mk
 
 $(NAME).spec: DESCRIPTION LICENSE
 

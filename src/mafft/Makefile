@@ -58,10 +58,6 @@
 
 REDHAT.ROOT = $(CURDIR)/../../
 
-ROLLCOMPILER=intel
-ROLLMPI=openmpi_ib
-COMPILERNAME := $(firstword $(subst /, ,$(ROLLCOMPILER)))
-MPINAME := $(firstword $(subst /, ,$(ROLLMPI)))
 
 AVX_FLAG=
 ifneq ("$(ROLLOPTS)", "$(subst avx2,,$(ROLLOPTS))")
@@ -71,6 +67,10 @@ else ifneq ("$(ROLLOPTS)", "$(subst avx,,$(ROLLOPTS))")
 endif
 
 
+ROLLCOMPILER=intel
+ROLLMPI=openmpi_ib
+COMPILERNAME := $(firstword $(subst /, ,$(ROLLCOMPILER)))
+MPINAME := $(firstword $(subst /, ,$(ROLLMPI)))
  
 -include $(ROCKSROOT)/etc/Rules.mk
 include Rules.mk
