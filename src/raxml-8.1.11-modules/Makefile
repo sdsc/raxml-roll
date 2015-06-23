@@ -22,6 +22,7 @@ modulefile-install:
 	  perl -pi -e 's#COMPILERNAME#$(COMPILERNAME)#g;' \
 	           -e 's#ROLLCOMPILER#$(ROLLCOMPILER)#g;' \
 	           -e 's#ROLLMPI#$(ROLLMPI)#g;' \
+	           -e 's#MPINAME#$(MPINAME)#g;' \
 	           -e 's#ROLLOPTS#$(ROLLOPTS)#g;' \
 	           -e 's#ROLLPY#$(ROLLPY)#g;' \
 	           -e "s#VERSION#$$V#g;" \
