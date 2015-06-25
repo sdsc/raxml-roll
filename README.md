@@ -71,14 +71,3 @@ The module files are:
 /opt/modulefiles/applications/raxml
 /opt/modulefiles/applications/garli
 /opt/modulefiles/applications/mafft
-```
-
-
-## Testing
-
-The raxml-roll includes a test script which can be run to verify proper
-installation of the raxml-roll documentation, binaries and module files. To
-run the test scripts execute the following command(s):
-
-```shell
-% /root/rolltests/raxml.t 
