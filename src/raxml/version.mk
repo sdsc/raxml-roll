@@ -1,5 +1,5 @@
 NAME               = sdsc-raxml
-VERSION            = 8.1.22
+VERSION            = 8.1.24
 PKGROOT            = /opt/raxml/$(VERSION)
 RELEASE            = 0
 TARBALL_POSTFIX    = tar.gz

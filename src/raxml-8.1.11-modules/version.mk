@@ -1,5 +1,5 @@
 ROLLCOMPILER=intel
-ROLLMPI=mvapich2_ib
+ROLLMPI=openmpi_ib
 COMPILERNAME := $(firstword $(subst /, ,$(ROLLCOMPILER)))
 MPINAME := $(firstword $(subst /, ,$(ROLLMPI)))
 
