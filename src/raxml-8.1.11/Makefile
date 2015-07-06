@@ -59,7 +59,7 @@
 REDHAT.ROOT = $(CURDIR)/../../
 
 ROLLCOMPILER=intel
-ROLLMPI=openmpi_ib
+ROLLMPI=mvapich2_ib
 COMPILERNAME := $(firstword $(subst /, ,$(ROLLCOMPILER)))
 MPINAME := $(firstword $(subst /, ,$(ROLLMPI)))
 -include $(ROCKSROOT)/etc/Rules.mk
