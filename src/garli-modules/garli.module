@@ -35,11 +35,9 @@ if { $loadApps  }  {
       module load ROLLCOMPILER
       module load ROLLMPI
   } elseif { [ string equal "ROLLCOMPILER" $compiler ] ==  1 } {
-      module unload ${mpi}
-      module load ROLLMPI
+      module swap  ${mpi} ROLLMPI
   } else {
-      module unload $compiler
-      module load ROLLCOMPILER
+      module swap $compiler ROLLCOMPILER
       module load ROLLMPI
   }
 }
