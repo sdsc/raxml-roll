@@ -7,10 +7,10 @@ This roll bundles a collection of genetic sequencing packages raxml,garli and ma
 For more information about the various packages included in the raxml roll
 please visit their official web pages:
 
-- <a href="http://http://sco.h-its.org/exelixis/software.html" target="_blank">RAXML</a> (Randomized Axelerated Maximum Likelihood) is a program for sequential and parallel
+- <a href="http://sco.h-its.org/exelixis/software.html" target="_blank">RAXML</a> (Randomized Axelerated Maximum Likelihood) is a program for sequential and parallel
 Maximum Likelihood based inference of large phylogenetic trees. 
-- <a href="http://www.nescent.org/wg_garli/" target="_blank">GARLI</a> is a program that performs phylogenetic inference using the maximum-likelihood criterion.  
-- <a href="http://http://mafft.cbrc.jp/alignment/software" target="_blank">MAFFT</a> is a multiple sequence alignment program 
+- <a href="https://code.google.com/p/garli/" target="_blank">GARLI</a> is a program that performs phylogenetic inference using the maximum-likelihood criterion.  
+- <a href="http://mafft.cbrc.jp/alignment/software" target="_blank">MAFFT</a> is a multiple sequence alignment program 
 
 
 ## Requirements

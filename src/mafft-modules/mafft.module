@@ -1,3 +1,6 @@
 #%Module1.0
+module-whatis "mafft"
+module-whatis "Version: VERSION"
+setenv MAFFTHOME /opt/mafft
 prepend-path PATH /opt/mafft/bin:/opt/mafft/binaries
 setenv MAFFT_BINARIES /opt/mafft/binaries

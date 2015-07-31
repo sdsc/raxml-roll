@@ -4,8 +4,8 @@
 
 
 	<description>
-        raxml http://sco.h-its.org/exelixis
-	garli https://www.nescent.org/wg_garli
+        raxml http://sco.h-its.org/exelixis/software.html
+	garli https://code.google.com/p/garli/
         mafft http://mafft.cbrc.jp/alignment/software
 	</description>
 
@@ -25,6 +25,7 @@
 	<package>sdsc-raxml-modules</package>
 	<package>sdsc-garli-modules</package>
 	<package>sdsc-mafft-modules</package>
+	<package>sdsc-raxml-roll-test</package>
 
 
 </kickstart>

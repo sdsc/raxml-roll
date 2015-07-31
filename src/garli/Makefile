@@ -124,6 +124,7 @@ install::
           $(MODULE_LOAD_CC); \
           $(MODULE_LOAD_MPI); \
 	  make install; \
+	  cp -r doc example $(ROOT)/$(PKGROOT) \
 	)
 	$(call BIND_UMOUNT, $(PKGROOT))
 	@echo "::: Package $(NAME) install complete :::"
