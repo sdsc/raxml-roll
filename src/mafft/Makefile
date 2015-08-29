@@ -53,29 +53,23 @@
 # IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # 
 # @Copyright@
-#
-# $Log$
 
-REDHAT.ROOT = $(CURDIR)/../../
+REDHAT.ROOT = $(PWD)/../../
 
-
-AVX_FLAG=
-ifneq ("$(ROLLOPTS)", "$(subst avx2,,$(ROLLOPTS))")
-      AVX_FLAG = -xcore-avx2
-else ifneq ("$(ROLLOPTS)", "$(subst avx,,$(ROLLOPTS))")
-      AVX_FLAG = -xavx
-endif
-
-
-ROLLCOMPILER=intel
-ROLLMPI=openmpi_ib
-COMPILERNAME := $(firstword $(subst /, ,$(ROLLCOMPILER)))
-MPINAME := $(firstword $(subst /, ,$(ROLLMPI)))
- 
 -include $(ROCKSROOT)/etc/Rules.mk
-include Rules.mk
 include $(SDSCDEVEL)/Pull.mk
 include $(SDSCDEVEL)/Rules.mk
+
+COMPILE_FLAGS = -O3
+ifeq ("$(COMPILERNAME)", "intel")
+  COMPILE_FLAGS = -O3 -no-prec-div -ipo -static
+endif
+
+ifneq ("$(ROLLOPTS)", "$(subst avx2,,$(ROLLOPTS))")
+  COMPILE_FLAGS += -xcore-avx2
+else ifneq ("$(ROLLOPTS)", "$(subst avx,,$(ROLLOPTS))")
+  COMPILE_FLAGS += -xavx
+endif
 
 $(NAME).spec: DESCRIPTION LICENSE
 
@@ -93,40 +87,29 @@ LICENSE: $(SRC_DIRS)
 
 build: $(SRC_DIRS)
 	( \
-           . /etc/profile.d/modules.sh; \
-           $(MODULE_LOAD_CC); \
-           $(MODULE_LOAD_MPI); \
-           patch $(SOURCE_DIR)/core/Makefile patch-files/Makefile.core.patch; \
-           patch $(SOURCE_DIR)/extensions/Makefile patch-files/Makefile.extensions.patch; \
-           patch $(SOURCE_DIR)/extensions/mxscarna_src/Makefile patch-files/Makefile.mxscarna_src.patch; \
-	   perl -pi -e "s!ROLLPREFIX!$(PKGROOT)!" $(SOURCE_DIR)/core/Makefile; \
-	   perl -pi -e "s!ROLLPREFIX!$(PKGROOT)!" $(SOURCE_DIR)/extensions/Makefile; \
-	   perl -pi -e "s!AVX_FLAG!$(AVX_FLAG)!" $(SOURCE_DIR)/core/Makefile; \
-	   perl -pi -e "s!AVX_FLAG!$(AVX_FLAG)!" $(SOURCE_DIR)/extensions/Makefile; \
-	   perl -pi -e "s!AVX_FLAG!$(AVX_FLAG)!" $(SOURCE_DIR)/extensions/mxscarna_src/Makefile; \
-           cd $(SOURCE_DIR)/core; \
-           make; \
-           cd ../extensions; \
-           make \
+	  $(MODULE_LOAD_CC); \
+	  $(MODULE_LOAD_MPI); \
+	  cd $(SOURCE_DIR)/core; \
+	  make PREFIX=$(PKGROOT) CC=$(CC) CXX=$(CXX) CFLAGS="$(COMPILE_FLAGS)"; \
+	  cd ../extensions; \
+	  make PREFIX=$(PKGROOT) CC=$(CC) CXX=$(CXX) CFLAGS="$(COMPILE_FLAGS)" \
 	)
 	@echo "::: Package $(NAME) build complete :::"
 	
 install::
-	mkdir -p $(ROOT)/$(PKGROOT)
-	mkdir -p $(PKGROOT)
-	mkdir -p $(REDHAT.ROOT)/src/build-raxml-modules
-	$(call BIND_MOUNT, $(PKGROOT), $(ROOT)/$(PKGROOT))
+	mkdir -p -m 755 $(ROOT)/$(PKGROOT)
+	$(PKGROOT_BIND_MOUNT)
 	( \
-             cd $(SOURCE_DIR); \
-             cp -r binaries $(PKGROOT); \
-             chmod 0775 $(PKGROOT)/binaries; \
-             cp -r test $(PKGROOT); \
-             chmod 0755 $(PKGROOT)/test; \
-             chmod 0644 $(PKGROOT)/test/*; \
-             cd core; \
-             make install \
+	  cd $(SOURCE_DIR); \
+	  cp -r binaries $(ROOT)/$(PKGROOT)/; \
+	  chmod 0775 $(ROOT)/$(PKGROOT)/binaries; \
+	  cp -r test $(ROOT)/$(PKGROOT)/; \
+	  chmod 0755 $(ROOT)/$(PKGROOT)/test; \
+	  chmod 0644 $(ROOT)/$(PKGROOT)/test/*; \
+	  cd core; \
+	  make PREFIX=$(PKGROOT) CC=$(CC) CXX=$(CXX) CFLAGS="$(COMPILE_FLAGS)" install \
 	)
-	$(call BIND_UMOUNT, $(PKGROOT))
+	$(PKGROOT_BIND_UMOUNT)
 	@echo "::: Package $(NAME) install complete :::"
 
 clean::

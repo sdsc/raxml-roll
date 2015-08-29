@@ -1,17 +1,26 @@
-PKGROOT            = /opt/garli
-NAME               = sdsc-garli
-VERSION            = 2.01
-RELEASE            = 7
-TARBALL_POSTFIX    = tar.gz
+ifndef ROLLCOMPILER
+  ROLLCOMPILER = gnu
+endif
+COMPILERNAME := $(firstword $(subst /, ,$(ROLLCOMPILER)))
 
-SRC_SUBDIR         = garli
+ifndef ROLLMPI
+  ROLLMPI = rocks-openmpi
+endif
+MPINAME := $(firstword $(subst /, ,$(ROLLMPI)))
 
-SOURCE_NAME        = garli
-SOURCE_VERSION     = $(VERSION)
-SOURCE_SUFFIX      = tar.gz
-SOURCE_PKG         = $(SOURCE_NAME)-$(SOURCE_VERSION).$(SOURCE_SUFFIX)
-SOURCE_DIR         = $(SOURCE_PKG:%.$(SOURCE_SUFFIX)=%)
+NAME           = sdsc-garli
+VERSION        = 2.01
+RELEASE        = 8
+PKGROOT        = /opt/garli
 
-TAR_GZ_PKGS           = $(SOURCE_PKG)
-RPM.EXTRAS         = AutoReq:No
+SRC_SUBDIR     = garli
 
+SOURCE_NAME    = garli
+SOURCE_SUFFIX  = tar.gz
+SOURCE_VERSION = $(VERSION)
+SOURCE_PKG     = $(SOURCE_NAME)-$(SOURCE_VERSION).$(SOURCE_SUFFIX)
+SOURCE_DIR     = $(SOURCE_PKG:%.$(SOURCE_SUFFIX)=%)
+
+TAR_GZ_PKGS    = $(SOURCE_PKG)
+
+RPM.EXTRAS     = AutoReq:No

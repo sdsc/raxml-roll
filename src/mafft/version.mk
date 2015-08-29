@@ -1,16 +1,26 @@
-PKGROOT            = /opt/mafft
-NAME               = sdsc-mafft
-VERSION            = 7.187
-RELEASE            = 6
-TARBALL_POSTFIX    = tgz
+ifndef ROLLCOMPILER
+  ROLLCOMPILER = gnu
+endif
+COMPILERNAME := $(firstword $(subst /, ,$(ROLLCOMPILER)))
 
-SRC_SUBDIR         = mafft
+ifndef ROLLMPI
+  ROLLMPI = rocks-openmpi
+endif
+MPINAME := $(firstword $(subst /, ,$(ROLLMPI)))
 
-SOURCE_NAME        = mafft-$(VERSION)-with-extensions-src
-SOURCE_VERSION     = $(VERSION)
-SOURCE_SUFFIX      = tgz
-SOURCE_PKG         = $(SOURCE_NAME).$(SOURCE_SUFFIX)
-SOURCE_DIR         = mafft-$(VERSION)-with-extensions
+NAME           = sdsc-mafft
+VERSION        = 7.187
+RELEASE        = 7
+PKGROOT        = /opt/mafft
 
-TGZ_PKGS           = $(SOURCE_PKG)
-RPM.EXTRAS         = AutoReq:No
+SRC_SUBDIR     = mafft
+
+SOURCE_NAME    = mafft-$(VERSION)-with-extensions-src
+SOURCE_SUFFIX  = tgz
+SOURCE_VERSION = $(VERSION)
+SOURCE_PKG     = $(SOURCE_NAME).$(SOURCE_SUFFIX)
+SOURCE_DIR     = mafft-$(VERSION)-with-extensions
+
+TGZ_PKGS       = $(SOURCE_PKG)
+
+RPM.EXTRAS     = AutoReq:No

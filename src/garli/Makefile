@@ -53,27 +53,20 @@
 # IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # 
 # @Copyright@
-#
-# $Log$
 
-REDHAT.ROOT = $(CURDIR)/../../
-ROLLCOMPILER=intel
-ROLLMPI=openmpi_ib
-COMPILERNAME := $(firstword $(subst /, ,$(ROLLCOMPILER)))
-MPINAME := $(firstword $(subst /, ,$(ROLLMPI)))
+REDHAT.ROOT = $(PWD)/../../
+
 -include $(ROCKSROOT)/etc/Rules.mk
-include Rules.mk
 include $(SDSCDEVEL)/Pull.mk
 include $(SDSCDEVEL)/Rules.mk
 
-NCL_VERSION=2.1.18
-
+NCL_DIR = $(CURDIR)/$(SOURCE_DIR)/ncldist
 
 AVX_FLAG=
 ifneq ("$(ROLLOPTS)", "$(subst avx2,,$(ROLLOPTS))")
-      AVX_FLAG = -xcore-avx2
+  AVX_FLAG = -xcore-avx2
 else ifneq ("$(ROLLOPTS)", "$(subst avx,,$(ROLLOPTS))")
-      AVX_FLAG = -xavx
+  AVX_FLAG = -xavx
 endif
 
 $(NAME).spec: DESCRIPTION LICENSE
@@ -90,44 +83,40 @@ LICENSE: $(SRC_DIRS)
 	$(CHECK_LICENSE_FILES)
 	echo  gplv3 > $@
 
-
-
 build: $(SRC_DIRS)
 	( \
-          $(MODULE_LOAD_CC); \
-          $(MODULE_LOAD_MPI); \
-          cd $(SOURCE_DIR); \
-          tar xvzf ncl-$(NCL_VERSION).tar.gz; \
-          export CC=$(CC); \
-          export CXX=$(CXX); \
-          export CFLAGS="$(AVX_FLAG)"; \
-          export CXXFLAGS="$(AVX_FLAG)"; \
-          export CPPFLAGS=-DNCL_CONST_FUNCS; \
-          cd ncl-$(NCL_VERSION); \
-	  ./configure --prefix=$(CURDIR)/$(SOURCE_DIR)/ncldist -disable-shared; \
-          make; \
-          make install; \
-          cd ..; \
-          export CC=mpicc; \
-          export CXX=mpicxx; \
-          ./configure --prefix=$(PKGROOT) --with-ncl=$(CURDIR)/$(SOURCE_DIR)/ncldist --enable-mpi \
+	  $(MODULE_LOAD_CC); \
+	  $(MODULE_LOAD_MPI); \
+	  cd $(SOURCE_DIR); \
+	  tar xvzf ncl*.tar.gz; \
+	  export CC=$(CC); \
+	  export CXX=$(CXX); \
+	  export CFLAGS="$(AVX_FLAG)"; \
+	  export CXXFLAGS="$(AVX_FLAG)"; \
+	  export CPPFLAGS=-DNCL_CONST_FUNCS; \
+	  cd ncl-*[0-9]; \
+	  ./configure --prefix=$(NCL_DIR) -disable-shared; \
+	  make; \
+	  make install; \
+	  cd ..; \
+	  export CC=mpicc; \
+	  export CXX=mpicxx; \
+	  ./configure --prefix=$(PKGROOT) --with-ncl=$(NCL_DIR) --enable-mpi \
 	)
 	@echo "::: Package $(NAME) build complete :::"
 	
 install::
-	mkdir -p $(ROOT)/$(PKGROOT)
-	mkdir -p $(PKGROOT)
-	mkdir -p $(REDHAT.ROOT)/src/build-raxml-modules
-	$(call BIND_MOUNT, $(PKGROOT), $(ROOT)/$(PKGROOT))
+	mkdir -p -m 755 $(ROOT)/$(PKGROOT)
+	$(PKGROOT_BIND_MOUNT)
 	( \
+	  $(MODULE_LOAD_CC); \
+	  $(MODULE_LOAD_MPI); \
 	  cd $(SOURCE_DIR); \
-          $(MODULE_LOAD_CC); \
-          $(MODULE_LOAD_MPI); \
 	  make install; \
-	  cp -r doc example $(ROOT)/$(PKGROOT) \
+	  cp -r doc example $(ROOT)/$(PKGROOT)/ \
 	)
-	$(call BIND_UMOUNT, $(PKGROOT))
+	$(PKGROOT_BIND_UMOUNT)
 	@echo "::: Package $(NAME) install complete :::"
 
 clean::
-	rm -rf $(SOURCE_DIR) ncldist DESCRIPTION LICENSE
+	rm -rf $(SOURCE_DIR) DESCRIPTION LICENSE

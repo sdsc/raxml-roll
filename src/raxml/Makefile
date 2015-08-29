@@ -53,19 +53,19 @@
 # IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # 
 # @Copyright@
-#
-# $Log$
 
-REDHAT.ROOT = $(CURDIR)/../../
+REDHAT.ROOT = $(PWD)/../../
 
-ROLLCOMPILER=intel
-ROLLMPI=openmpi_ib
-COMPILERNAME := $(firstword $(subst /, ,$(ROLLCOMPILER)))
-MPINAME := $(firstword $(subst /, ,$(ROLLMPI)))
 -include $(ROCKSROOT)/etc/Rules.mk
-include Rules.mk
 include $(SDSCDEVEL)/Pull.mk
 include $(SDSCDEVEL)/Rules.mk
+
+AVX_FLAG=
+ifneq ("$(ROLLOPTS)", "$(subst avx2,,$(ROLLOPTS))")
+  AVX_FLAG = -xcore-avx2
+else ifneq ("$(ROLLOPTS)", "$(subst avx,,$(ROLLOPTS))")
+  AVX_FLAG = -xavx
+endif
 
 $(NAME).spec: DESCRIPTION LICENSE
 
@@ -81,41 +81,25 @@ LICENSE: $(SRC_DIRS)
 	$(CHECK_LICENSE_FILES)
 	echo Alexandros Stamatakis > $@
 
-AVX_FLAG=
-ifneq ("$(ROLLOPTS)", "$(subst avx2,,$(ROLLOPTS))")
-      AVX_FLAG = -xcore-avx2
-else ifneq ("$(ROLLOPTS)", "$(subst avx,,$(ROLLOPTS))")
-      AVX_FLAG = -xavx
-endif
-
 build: $(SRC_DIRS)
+	cp Makefile.* $(SOURCE_DIR)/
 	( \
-          cp *.icc $(SOURCE_DIR); \
-          perl -pi -e "s!AVX_FLAG!$(AVX_FLAG)!" $(SOURCE_DIR)/Makefile.HYBRID.icc; \
-          perl -pi -e "s!AVX_FLAG!$(AVX_FLAG)!" $(SOURCE_DIR)/Makefile.icc; \
-          perl -pi -e "s!AVX_FLAG!$(AVX_FLAG)!" $(SOURCE_DIR)/Makefile.MPI.icc; \
-          perl -pi -e "s!AVX_FLAG!$(AVX_FLAG)!" $(SOURCE_DIR)/Makefile.PTHREADS.icc; \
-          . /etc/profile.d/modules.sh; \
-          $(MODULE_LOAD_CC); \
-          $(MODULE_LOAD_MPI); \
+	  $(MODULE_LOAD_CC); \
+	  $(MODULE_LOAD_MPI); \
 	  cd $(SOURCE_DIR); \
-          make -f Makefile.HYBRID.icc; \
-          rm -f *.o; \
-          make -f Makefile.MPI.icc; \
-          rm -f *.o; \
-          make -f Makefile.PTHREADS.icc; \
-          rm -rf *.o; \
-          make -f Makefile.icc \
+	  make -f Makefile.HYBRID AVX_FLAG=$(AVX_FLAG); \
+	  rm -f *.o; \
+	  make -f Makefile.MPI AVX_FLAG=$(AVX_FLAG); \
+	  rm -f *.o; \
+	  make -f Makefile.PTHREADS CC=$(CC) AVX_FLAG=$(AVX_FLAG); \
+	  rm -rf *.o; \
+	  make -f Makefile.raxml CC=$(CC) AVX_FLAG=$(AVX_FLAG) \
 	)
 	@echo "::: Package $(NAME) build complete :::"
 	
 install::
-	mkdir -p $(ROOT)/$(PKGROOT)/bin
-	mkdir -p $(REDHAT.ROOT)/src/build-raxml-modules
-	( \
-	  cd $(SOURCE_DIR); \
-          cp raxmlHPC* $(ROOT)/$(PKGROOT)/bin \
-	)
+	mkdir -p -m 755 $(ROOT)/$(PKGROOT)/bin
+	cp $(SOURCE_DIR)/raxmlHPC* $(ROOT)/$(PKGROOT)/bin/
 	@echo "::: Package $(NAME) install complete :::"
 
 clean::
