@@ -1,16 +1,26 @@
-PKGROOT            = /opt/raxml
-NAME               = sdsc-raxml
-VERSION            = 8.1.24
-RELEASE            = 0
-TARBALL_POSTFIX    = tar.gz
+ifndef ROLLCOMPILER
+  ROLLCOMPILER = gnu
+endif
+COMPILERNAME := $(firstword $(subst /, ,$(ROLLCOMPILER)))
 
-SRC_SUBDIR         = raxml
+ifndef ROLLMPI
+  ROLLMPI = rocks-openmpi
+endif
+MPINAME := $(firstword $(subst /, ,$(ROLLMPI)))
 
-SOURCE_NAME        = raxml
-SOURCE_VERSION     = $(VERSION)
-SOURCE_SUFFIX      = tar.gz
-SOURCE_PKG         = $(SOURCE_NAME)-$(SOURCE_VERSION).$(SOURCE_SUFFIX)
-SOURCE_DIR         = $(SOURCE_NAME)-$(SOURCE_VERSION)
+NAME           = sdsc-raxml
+VERSION        = 8.1.24
+RELEASE        = 1
+PKGROOT        = /opt/raxml
 
-TAR_GZ_PKGS           = $(SOURCE_PKG)
-RPM.EXTRAS         = AutoReq:No
+SRC_SUBDIR     = raxml
+
+SOURCE_NAME    = raxml
+SOURCE_SUFFIX  = tar.gz
+SOURCE_VERSION = $(VERSION)
+SOURCE_PKG     = $(SOURCE_NAME)-$(SOURCE_VERSION).$(SOURCE_SUFFIX)
+SOURCE_DIR     = $(SOURCE_NAME)-$(SOURCE_VERSION)
+
+TAR_GZ_PKGS    = $(SOURCE_PKG)
+
+RPM.EXTRAS     = AutoReq:No
