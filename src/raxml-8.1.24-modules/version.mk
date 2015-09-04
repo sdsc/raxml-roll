@@ -3,7 +3,7 @@ ROLLMPI=openmpi_ib
 COMPILERNAME := $(firstword $(subst /, ,$(ROLLCOMPILER)))
 MPINAME := $(firstword $(subst /, ,$(ROLLMPI)))
 
-PACKAGE     = raxml-8.1.24
+PACKAGE     = raxml
 CATEGORY    = applications
 
 NAME        = sdsc-$(PACKAGE)-modules
