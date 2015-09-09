@@ -6,7 +6,7 @@ MPINAME := $(firstword $(subst /, ,$(ROLLMPI)))
 PACKAGE     = raxml
 CATEGORY    = applications
 
-NAME        = sdsc-$(PACKAGE)-modules
+NAME        = sdsc-$(PACKAGE)-8.1.11-modules
 RELEASE     = 2
 PKGROOT     = /opt/modulefiles/$(CATEGORY)/$(PACKAGE)
 
