@@ -1,6 +1,6 @@
 #%Module1.0
 set compiler "nocompiler"
-set mpi ""
+set mpi "nompi"
 if {[module-info mode switch1] || [module-info mode switch3]} {
   set commandWords [split [exec /bin/ps -p [pid] -o args=] " "]
   set switchFrom [lindex [split [module-info name] "/"] 0]
@@ -18,7 +18,7 @@ if { $loadApps  }  {
           set compiler "intel"
      } elseif { [ string match "*pgi*" $app ] == 1 } {
           set compiler "pgi"
-     } elseif { [ string match "*gnu*" $app ] == 1 && [ string match *gnubase* $app ] == 0 } {
+     } elseif { [ string match "*gnu*" $app ] == 1 && [ string match *gnutools* $app ] == 0 } {
           set compiler "gnu"
      }
      if { [ string match "*mvapich2_ib*" $app ] == 1 } {
@@ -33,13 +33,14 @@ if { $loadApps  }  {
 
  if { [ string equal "nocompiler" $compiler ] ==  1 } {
       module load COMPILERNAME
-      module load MPINAME
-  } elseif { [ string equal "COMPILERNAME" $compiler ] ==  1 } {
-      module unload ${mpi}
-      module load MPINAME
   } else {
       module unload $compiler
       module load COMPILERNAME
+  }
+ if { [ string equal "nompi" $mpi ] ==  1 } {
+      module load MPINAME
+  } elseif { [ string equal "MPINAME" $mpi ] !=  1 } {
+      module unload ${mpi}
       module load MPINAME
   }
 }
