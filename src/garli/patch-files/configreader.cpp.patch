@@ -1,0 +1,10 @@
+--- configreader.cpp	2017-07-31 13:29:46.000000000 -0700
++++ patch-files/configreader.cpp	2017-07-31 14:11:35.000000000 -0700
+@@ -635,6 +635,6 @@
+ 	map<std::string, std::string> ops = sections["general"];
+ 	ops.insert(sections["master"].begin(), sections["master"].end());
+ 	string name="all";
+-	sections.insert(make_pair<std::string, Options>(name, ops));
++	sections.insert(make_pair(name, ops));
+ 	}
+ 

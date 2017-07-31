@@ -10,7 +10,7 @@ MPINAME := $(firstword $(subst /, ,$(ROLLMPI)))
 
 NAME           = sdsc-mafft
 VERSION        = 7.187
-RELEASE        = 7
+RELEASE        = 8
 PKGROOT        = /opt/mafft
 
 SRC_SUBDIR     = mafft

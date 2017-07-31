@@ -84,6 +84,8 @@ LICENSE: $(SRC_DIRS)
 	echo  gplv3 > $@
 
 build: $(SRC_DIRS)
+	patch $(SOURCE_DIR)/src/configreader.cpp patch-files/configreader.cpp.patch
+	patch $(SOURCE_DIR)/src/tree.cpp patch-files/tree.cpp.patch
 	( \
 	  $(MODULE_LOAD_CC); \
 	  $(MODULE_LOAD_MPI); \
