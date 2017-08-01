@@ -1,0 +1,20 @@
+8368c8368
+< 		return make_pair<FLOAT_TYPE, FLOAT_TYPE>(-ONE_POINT_ZERO, ZERO_POINT_ZERO);
+---
+> 		return make_pair(-ONE_POINT_ZERO, ZERO_POINT_ZERO);
+8399c8399
+< 			if(fabs(prev - s) < max(1.0e-8, GARLI_FP_EPS * 2.0)) return make_pair<FLOAT_TYPE, FLOAT_TYPE>(-ONE_POINT_ZERO, prev);
+---
+> 			if(fabs(prev - s) < max(1.0e-8, GARLI_FP_EPS * 2.0)) return make_pair(-ONE_POINT_ZERO, prev);
+8419c8419
+< 			return make_pair<FLOAT_TYPE, FLOAT_TYPE>(effectiveScale, prev);
+---
+> 			return make_pair(effectiveScale, prev);
+8448c8448
+< 		if(effectiveScale > 100.0) return make_pair<FLOAT_TYPE, FLOAT_TYPE>(100.0, prev);
+---
+> 		if(effectiveScale > 100.0) return make_pair(100.0, prev);
+8454c8454
+< 			return make_pair<FLOAT_TYPE, FLOAT_TYPE>(effectiveScale, prev);
+---
+> 			return make_pair(effectiveScale, prev);

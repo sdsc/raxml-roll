@@ -10,7 +10,7 @@ MPINAME := $(firstword $(subst /, ,$(ROLLMPI)))
 
 NAME           = sdsc-garli
 VERSION        = 2.01
-RELEASE        = 8
+RELEASE        = 9
 PKGROOT        = /opt/garli
 
 SRC_SUBDIR     = garli
