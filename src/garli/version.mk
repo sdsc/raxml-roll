@@ -10,7 +10,7 @@ MPINAME := $(firstword $(subst /, ,$(ROLLMPI)))
 
 NAME           = sdsc-garli
 VERSION        = 2.01
-RELEASE        = 9
+RELEASE        = 10
 PKGROOT        = /opt/garli
 
 SRC_SUBDIR     = garli
@@ -23,4 +23,5 @@ SOURCE_DIR     = $(SOURCE_PKG:%.$(SOURCE_SUFFIX)=%)
 
 TAR_GZ_PKGS    = $(SOURCE_PKG)
 
-RPM.EXTRAS     = AutoReq:No
+RPM.EXTRAS     = AutoReq:No\nAutoProv:No
+RPM.PREFIX     = $(PKGROOT)

@@ -10,7 +10,7 @@ MPINAME := $(firstword $(subst /, ,$(ROLLMPI)))
 
 NAME           = sdsc-mafft
 VERSION        = 7.187
-RELEASE        = 8
+RELEASE        = 9
 PKGROOT        = /opt/mafft
 
 SRC_SUBDIR     = mafft
@@ -23,4 +23,5 @@ SOURCE_DIR     = mafft-$(VERSION)-with-extensions
 
 TGZ_PKGS       = $(SOURCE_PKG)
 
-RPM.EXTRAS     = AutoReq:No
+RPM.EXTRAS     = AutoReq:No\nAutoProv:No
+RPM.PREFIX     = $(PKGROOT)
