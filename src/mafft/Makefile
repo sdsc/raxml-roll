@@ -85,7 +85,6 @@ LICENSE: $(SRC_DIRS)
 	echo Kazutaka Katoh > $@
 
 build: $(SRC_DIRS)
-	patch $(SOURCE_DIR)//extensions/mxscarna_src/Beta.hpp patch-files/Beta.hpp.patch
 	( \
 	  $(MODULE_LOAD_CC); \
 	  $(MODULE_LOAD_MPI); \
