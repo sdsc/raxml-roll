@@ -1,4 +1,0 @@
-19c19
-<   static const int BASEMSK = ~(~0 << BASEBIT);
----
->   static const int BASEMSK = (int)~(~0u << BASEBIT);

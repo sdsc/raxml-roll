@@ -9,8 +9,8 @@ endif
 MPINAME := $(firstword $(subst /, ,$(ROLLMPI)))
 
 NAME           = sdsc-mafft
-VERSION        = 7.187
-RELEASE        = 9
+VERSION        = 7.427
+RELEASE        = 0
 PKGROOT        = /opt/mafft
 
 SRC_SUBDIR     = mafft
